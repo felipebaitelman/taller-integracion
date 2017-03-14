@@ -4,7 +4,7 @@ class ArticlesController < ApplicationController
   # GET /articles
   # GET /articles.json
   def index
-    @articles = Article.all.paginate(:page => params[:page], :per_page => 10)
+    @articles = Article.all.order('created_at DESC').first(10)
   end
 
   # GET /articles/1
@@ -61,6 +61,7 @@ class ArticlesController < ApplicationController
     end
   end
 
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_article
@@ -69,6 +70,6 @@ class ArticlesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def article_params
-      params.require(:article).permit(:title, :body, :link)
+      params.require(:article).permit(:title, :lead, :body, :link)
     end
 end
